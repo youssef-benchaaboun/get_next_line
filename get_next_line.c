@@ -1,61 +1,49 @@
-#define BUFFER_SIZE 3
 #include"get_next_line.h"
-int ft_strlen(char *s)
+char	*get_next_line(int fd)
 {
+	static char	s[BUFFER_SIZE + 1];
+	char		*result;
+	int		control;
 
-
-	if(!s)
-		return 0;
-	int i=0;
-	while(s[i] && s[i] !='\n')
-		i++;
-	return i;
-}
-void ft_strcat(char *result, char *s)
-{
-	int i;
-	int j;
-	i=0;
-	while(result[i])
-		i++;
-	j=0;
-	while(s2[i] && s2[j] !='\n')
+	result = NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	if (handel_rest(s, &result))
+		return (result);
+	control = read(fd, s, BUFFER_SIZE);
+	while (control > 0)
 	{
-		result[i+j]=s2[j];
-		j++;
+		s[control] = '\0';
+		result = ft_strjoin(result, s);
+		if (s[ft_strlen(s)] == '\n')
+			break ;
+		control = read(fd, s, BUFFER_SIZE);
 	}
+	if (control == -1)
+		return (NULL);
+	ft_strcpy(s, s);
+	return (result);
 }
+#include <stdio.h>
+#include "get_next_line.h"
 
-char * ft_strjoin(char *r,char *s)
+int	main(void)
 {
-	char *result;
-	int lr;
-	int ls;
-	ls=ft_strlen(s);
-	lr=ft_strlen(r);
-	result=calloc((ls+lr+1)*sizeof(char));
-	ft_strcat(result,r);
-	free(r);
-	ft_strcat(result,s);
-	return result;
-}
+	int		fd;
+	char	*line;
 
-char *get_next_line(int fd)
-{
-	static char *rest=NULL;
-	char *result="";
-	if(fd<0 || BUFFER_SIZE<1)
-		return NULL;
-	char s[BUFFER_SIZE+1];
-	if(result)
-		
-	while(new && read(fd,s[BUFFER_SIZE -1],BUFFER_SIZE-1))
+	fd = open("get_next_line.c", O_RDONLY);
+	if (fd < 0)
+		return (1);
+
+	line = get_next_line(fd);
+	while (line)
 	{
-		result=ft_strjoin(result,s);
-		new=ft_rest(rest,s);
+		printf("%s", line);
+		free(line);
+		line = get_next_line(fd);
 	}
-	return rest;
+
+	close(fd);
+	return (0);
 }
-
-
-
