@@ -1,49 +1,27 @@
-#include"get_next_line.h"
-char	*get_next_line(int fd)
-{
-	static char	s[BUFFER_SIZE + 1];
-	char		*result;
-	int		control;
-
-	result = NULL;
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	if (handel_rest(s, &result))
-		return (result);
-	control = read(fd, s, BUFFER_SIZE);
-	while (control > 0)
-	{
-		s[control] = '\0';
-		result = ft_strjoin(result, s);
-		if (s[ft_strlen(s)] == '\n')
-			break ;
-		control = read(fd, s, BUFFER_SIZE);
-	}
-	if (control == -1)
-		return (NULL);
-	ft_strcpy(s, s);
-	return (result);
-}
-#include <stdio.h>
 #include "get_next_line.h"
 
-int	main(void)
+char	*get_next_line(int fd)
 {
-	int		fd;
-	char	*line;
+	static char	buffer[BUFFER_SIZE + 1];
+	char		*line;
+	int			bytes;
 
-	fd = open("get_next_line.c", O_RDONLY);
-	if (fd < 0)
-		return (1);
-
-	line = get_next_line(fd);
-	while (line)
+	line = NULL;
+	if (read(fd, NULL, 0) < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	if (handle_rest(buffer, &line))
+		return (line);
+	bytes = read(fd, buffer, BUFFER_SIZE);
+	while (bytes)
 	{
-		printf("%s", line);
-		free(line);
-		line = get_next_line(fd);
+		buffer[bytes] = '\0';
+		line = ft_strjoin(line, buffer);
+		if (buffer[ft_strlen(buffer)] == '\n')
+			break ;
+		bytes = read(fd, buffer, BUFFER_SIZE);
 	}
-
-	close(fd);
-	return (0);
+	if (bytes == -1)
+		return (free(line), (NULL));
+	ft_strcpy(buffer, buffer);
+	return (line);
 }
