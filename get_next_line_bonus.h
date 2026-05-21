@@ -1,14 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yoben-ch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/21 19:37:49 by yoben-ch          #+#    #+#             */
+/*   Updated: 2026/05/21 21:39:07 by yoben-ch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 5
 # endif
-#ifndef OPEN_MAX
-# define OPEN_MAX 1024
-#endif
+
 # include <stdlib.h>
 # include <unistd.h>
-#include <limits.h>
 
 char	*get_next_line(int fd);
 int		ft_strlen(char *s);

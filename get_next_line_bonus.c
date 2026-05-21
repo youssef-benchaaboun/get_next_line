@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yoben-ch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/21 19:37:49 by yoben-ch          #+#    #+#             */
+/*   Updated: 2026/05/21 21:25:45 by yoben-ch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line_bonus.h"
 
 char	*get_next_line(int fd)
@@ -13,7 +25,7 @@ char	*get_next_line(int fd)
 		bytes = 1;
 	else
 		bytes = read(fd, buffer[fd], BUFFER_SIZE);
-	while (bytes)
+	while (bytes > 0)
 	{
 		line = ft_strjoin(line, buffer[fd]);
 		ft_shift(buffer[fd]);
