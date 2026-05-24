@@ -19,11 +19,10 @@ char	*get_next_line(int fd)
 	int			bytes;
 
 	line = NULL;
-	if (read(fd, NULL, 0) < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	if (buffer[0])
-		bytes = 1;
-	else
+	if (BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
+		return (buffer[0] = '\0', NULL);
+	bytes = 1;
+	if (!buffer[0])
 		bytes = read(fd, buffer, BUFFER_SIZE);
 	while (bytes > 0)
 	{

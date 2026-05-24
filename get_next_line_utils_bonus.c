@@ -68,7 +68,7 @@ char	*ft_strjoin(char *line, char *buffer)
 		bl++;
 	joined = malloc((bl + ll + 1) * sizeof(char));
 	if (!joined)
-		return (NULL);
+		return (free(line), NULL);
 	ft_strcpy(joined, line);
 	ft_strcpy(joined + ll, buffer);
 	if (line)
