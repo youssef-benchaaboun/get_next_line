@@ -15,9 +15,10 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 5
 # endif
-# if BUFFER_SIZE < 0
-#  undef BUFFER_SIZE
-#  define BUFFER_SIZE 0
+# if BUFFER_SIZE <= 0
+#  define GNL_BUFFER_SIZE 1
+# else
+#  define GNL_BUFFER_SIZE BUFFER_SIZE
 # endif
 # ifndef OPEN_MAX
 #  define OPEN_MAX 1024

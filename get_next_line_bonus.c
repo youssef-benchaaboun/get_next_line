@@ -14,7 +14,7 @@
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[OPEN_MAX][BUFFER_SIZE + 1];
+	static char	buffer[OPEN_MAX][GNL_BUFFER_SIZE + 1];
 	char		*line;
 	int			bytes;
 
@@ -25,7 +25,7 @@ char	*get_next_line(int fd)
 		return (buffer[fd][0] = '\0', NULL);
 	bytes = 1;
 	if (!buffer[fd][0])
-		bytes = read(fd, buffer[fd], BUFFER_SIZE);
+		bytes = read(fd, buffer[fd], GNL_BUFFER_SIZE);
 	while (bytes > 0)
 	{
 		line = ft_strjoin(line, buffer[fd]);
@@ -34,7 +34,7 @@ char	*get_next_line(int fd)
 			return (NULL);
 		if (line[ft_strlen(line)])
 			break ;
-		bytes = read(fd, buffer[fd], BUFFER_SIZE);
+		bytes = read(fd, buffer[fd], GNL_BUFFER_SIZE);
 	}
 	if (bytes == -1)
 		return (free(line), (NULL));
