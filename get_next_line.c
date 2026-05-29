@@ -6,7 +6,7 @@
 /*   By: yoben-ch <yoben-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 19:37:49 by yoben-ch          #+#    #+#             */
-/*   Updated: 2026/05/29 17:50:13 by yoben-ch         ###   ########.fr       */
+/*   Updated: 2026/05/29 20:36:38 by yoben-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_next_line(int fd)
 	int			bytes;
 
 	line = NULL;
-	if (BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
+	if (fd < 0 || fd >= FOPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
 	bytes = 1;
 	if (!buffer[0])

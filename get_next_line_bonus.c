@@ -6,7 +6,7 @@
 /*   By: yoben-ch <yoben-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 19:37:49 by yoben-ch          #+#    #+#             */
-/*   Updated: 2026/05/29 17:50:30 by yoben-ch         ###   ########.fr       */
+/*   Updated: 2026/05/29 20:35:28 by yoben-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[OPEN_MAX][GNL_BUFFER_SIZE + 1];
+	static char	buffer[FOPEN_MAX][GNL_BUFFER_SIZE + 1];
 	char		*line;
 	int			bytes;
 
 	line = NULL;
-	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
+	if (fd < 0 || fd >= FOPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
 	bytes = 1;
 	if (!buffer[fd][0])
