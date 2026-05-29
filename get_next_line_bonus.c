@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoben-ch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yoben-ch <yoben-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 19:37:49 by yoben-ch          #+#    #+#             */
-/*   Updated: 2026/05/21 21:25:45 by yoben-ch         ###   ########.fr       */
+/*   Updated: 2026/05/29 17:50:30 by yoben-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,11 @@ char	*get_next_line(int fd)
 	int			bytes;
 
 	line = NULL;
-	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
 		return (NULL);
-	if (read(fd, NULL, 0) < 0)
-		return (buffer[fd][0] = '\0', NULL);
 	bytes = 1;
 	if (!buffer[fd][0])
-		bytes = read(fd, buffer[fd], GNL_BUFFER_SIZE);
+		bytes = read(fd, buffer[fd], BUFFER_SIZE);
 	while (bytes > 0)
 	{
 		line = ft_strjoin(line, buffer[fd]);
@@ -34,9 +32,9 @@ char	*get_next_line(int fd)
 			return (NULL);
 		if (line[ft_strlen(line)])
 			break ;
-		bytes = read(fd, buffer[fd], GNL_BUFFER_SIZE);
+		bytes = read(fd, buffer[fd], BUFFER_SIZE);
 	}
-	if (bytes == -1)
+	if (bytes < 0)
 		return (free(line), (NULL));
 	return (line);
 }

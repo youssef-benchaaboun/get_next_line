@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoben-ch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yoben-ch <yoben-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 19:37:49 by yoben-ch          #+#    #+#             */
-/*   Updated: 2026/05/24 21:25:08 by yoben-ch         ###   ########.fr       */
+/*   Updated: 2026/05/29 17:50:13 by yoben-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ char	*get_next_line(int fd)
 
 	line = NULL;
 	if (BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
-		return (buffer[0] = '\0', NULL);
+		return (NULL);
 	bytes = 1;
 	if (!buffer[0])
-		bytes = read(fd, buffer, GNL_BUFFER_SIZE);
+		bytes = read(fd, buffer, BUFFER_SIZE);
 	while (bytes > 0)
 	{
 		line = ft_strjoin(line, buffer);
@@ -32,9 +32,9 @@ char	*get_next_line(int fd)
 			return (NULL);
 		if (line[ft_strlen(line)])
 			break ;
-		bytes = read(fd, buffer, GNL_BUFFER_SIZE);
+		bytes = read(fd, buffer, BUFFER_SIZE);
 	}
-	if (bytes == -1)
+	if (bytes < 0)
 		return (free(line), (NULL));
 	return (line);
 }
